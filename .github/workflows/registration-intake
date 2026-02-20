@@ -1,0 +1,19 @@
+name: Lock registration intake issues
+
+on:
+    issues:
+    types: [opened, labeled]
+
+permissions:
+    issues: write
+
+jobs:
+    lock-intake:
+      if: contains(github.event.issue.labels.*.name, 'registration-intake')
+      runs-on: ubuntu-latest
+      steps:
+        - name: Lock issue conversation
+          uses: peter-evans/lock-issue@v3
+          with:
+            issue-number: ${{ github.event.issue.number }}
+            lock-reason: resolved
