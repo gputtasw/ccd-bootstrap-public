@@ -14,7 +14,10 @@ concurrency:
 
 jobs:
   forward:
-    if: contains(github.event.issue.labels.*.name, 'registration-intake')
+    if: >
+      contains(github.event.issue.labels.*.name, 'registration-intake') ||
+      startsWith(github.event.issue.title, 'Registration Intake:') ||
+      contains(github.event.issue.body, 'Source: bootstrap-intake')
     runs-on: ubuntu-latest
     steps:
       - name: Extract Hub ID from intake issue
